@@ -4,11 +4,12 @@ from PIL import Image
 
 URL = "https://pokeapi.co/api/v2/pokemon/"
 number = input("What number or name? ")
-URL = URL+number
+URL = URL+number 
 
 r = requests.get(url = URL)
 data = r.json()
 name = data['species']['name']
+number = data['id']
 
 image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{number}.png"
 
