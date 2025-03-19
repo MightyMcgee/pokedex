@@ -4,12 +4,11 @@ from PIL import Image
 
 URL = "https://pokeapi.co/api/v2/pokemon/"
 number = input("What number or name? ")
-URL = URL+number 
+URL = URL+number
 
 r = requests.get(url = URL)
 data = r.json()
 name = data['species']['name']
-number = data['id']
 
 image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{number}.png"
 
@@ -31,14 +30,89 @@ Image.open('image.jpg').convert('RGB').save('image.jpg')
 image = Image.open('image.jpg')
 new_image = image.resize((600, 600))
 new_image.save('scaled.jpg')
-imp = pygame.image.load("/home/sean/Documents/vscode/scaled.jpg").convert()
+imp = pygame.image.load("/home/alex_gray/VS COde/pokedex/scaled.jpg").convert()
+
 
 display_surface.blit(imp, (0, 0))
 pygame.display.flip()
 status = True
 while (status):
+    URL = "https://pokeapi.co/api/v2/pokemon/"
     for i in pygame.event.get():
         if i.type == pygame.QUIT:
             status = False
+        if i.type == pygame.KEYDOWN:
+            if i.key == pygame.K_RIGHT:
+                #print("right")
+                number = int(number)
+                number += 1
+                
+                if number == 152:
+                    number = 1
+                number = str(number)
+                display_surface.fill(black)
+
+                URL = URL+number
+
+                r = requests.get(url = URL)
+                data = r.json()
+                name = data['species']['name']
+
+                image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{number}.png"
+
+                img_data = requests.get(image_url).content
+                with open('image.jpg', 'wb') as handler:
+                    handler.write(img_data)
+                
+                text = font.render(name, True, white)
+                width = text.get_rect().width
+                display_surface.blit(text, (300-(width/2),600))
+
+                Image.open('image.jpg').convert('RGB').save('image.jpg')
+                image = Image.open('image.jpg')
+                new_image = image.resize((600, 600))
+                new_image.save('scaled.jpg')
+                imp = pygame.image.load("/home/alex_gray/VS COde/pokedex/scaled.jpg").convert()
+
+                display_surface.blit(imp, (0, 0))
+
+                pygame.display.flip()
+                
+                
+            if i.key == pygame.K_LEFT:
+                #print("left")
+                number = int(number)
+                number -= 1
+                if number == 0:
+                    number = 151
+                number = str(number)
+
+                display_surface.fill(black)
+
+                URL = URL+number
+
+                r = requests.get(url = URL)
+                data = r.json()
+                name = data['species']['name']
+
+                image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{number}.png"
+
+                img_data = requests.get(image_url).content
+                with open('image.jpg', 'wb') as handler:
+                    handler.write(img_data)
+                
+                text = font.render(name, True, white)
+                width = text.get_rect().width
+                display_surface.blit(text, (300-(width/2),600))
+
+                Image.open('image.jpg').convert('RGB').save('image.jpg')
+                image = Image.open('image.jpg')
+                new_image = image.resize((600, 600))
+                new_image.save('scaled.jpg')
+                imp = pygame.image.load("/home/alex_gray/VS COde/pokedex/scaled.jpg").convert()
+
+                display_surface.blit(imp, (0, 0))
+
+                pygame.display.flip()
 
 pygame.quit()
