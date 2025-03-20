@@ -1,7 +1,6 @@
 import requests
 import pygame
 from PIL import Image
-import re
 
 while True:
     try:
